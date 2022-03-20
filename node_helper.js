@@ -239,9 +239,9 @@ module.exports = NodeHelper.create({
   },
 
   createPersistenceStorageDirectory: function (config) {
-    if (config.persistencePath === null)
+    if (config.persistencePath === null) {
       config.persistencePath = `${this.path}/.store`;
-    console.log(config);
+    }
     if (config.persistence === "server") {
       const path = this.getPersistenceStoragePath(config);
       if (!fs.existsSync(path)) {
