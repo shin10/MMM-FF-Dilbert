@@ -86,7 +86,7 @@ Module.register("MMM-Ff-Dilbert", {
 
   writePersistentState: function () {
     const config = this.config;
-    if (this.clientUsesStorage()) {
+    if (this.clientUsesStorage() && this.comicData?.id) {
       const path = this.getPersistenceStore(config);
       const data = JSON.stringify({ id: this.comicData.id });
       window.localStorage.setItem(path, data);
@@ -173,9 +173,11 @@ Module.register("MMM-Ff-Dilbert", {
     const acceptableSender = this.config.events.sender;
     return (
       !acceptableSender ||
+      acceptableSender === sender.name ||
       acceptableSender === sender.identifier ||
       (Array.isArray(acceptableSender) &&
-        acceptableSender.includes(sender.identifier))
+        (acceptableSender.includes(sender.name) ||
+          acceptableSender.includes(sender.identifier)))
     );
   },
 
