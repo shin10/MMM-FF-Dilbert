@@ -1,6 +1,6 @@
 ![Magic Mirror² displaying a Dilbert comic strip](screenshot.png)
 
-# MMM-Ff-Dilbert
+# MMM-FF-Dilbert
 
 [![ISC License](https://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc)
 
@@ -21,7 +21,7 @@ Features:
 Just navigate to the `modules` directory of your MagicMirror² installation and clone this repository.
 
 ```sh
-git clone https://github.com/shin10/MMM-Ff-Dilbert.git
+git clone https://github.com/shin10/MMM-FF-Dilbert.git
 ```
 
 ## Configuration
@@ -30,7 +30,7 @@ git clone https://github.com/shin10/MMM-Ff-Dilbert.git
 
 ```js
 {
-  module: 'MMM-Ff-Dilbert',
+  module: 'MMM-FF-Dilbert',
   position: 'bottom',
   config: {
     header: "Dilbert",
@@ -114,4 +114,4 @@ If you have only one client it's probably the best idea to set `persistence` to 
 `"server"` will save the data to your servers file system. This might be the best option if you're running multiple screens for one server instance. File system access however is dangerous if you don't know what you're doing. Use at own risk!
 
 `"persistenceId"`: The _localStorage key_ or _fs filename_ to save the data to. It defaults to the _module identifier_ provided by MM² automatically to support multiple instances. It's perfectly fine to leave it that way, but if you're currently experimenting with the config and module instances are changing their position within the modules array of the `config.js` file, it might be better to set this manually.
-`"persistencePath"` `"./modules/MMM-Ff-Dilbert/.store"` only used by `fs`. It might be important to customize this to a mounted directory if you are running MM² in a containerized environment like docker.
+`"persistencePath"` `"./modules/MMM-FF-Dilbert/.store"` only used by `fs`. It might be important to customize this to a mounted directory if you are running MM² in a containerized environment like docker.

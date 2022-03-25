@@ -1,5 +1,5 @@
 /* Magic Mirror
- * Module: MMM-Ff-Dilbert
+ * Module: MMM-FF-Dilbert
  *
  * By Michael Trenkler
  * ISC Licensed.

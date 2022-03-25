@@ -1,11 +1,11 @@
 /* Magic Mirror
- * Module: MMM-Ff-Dilbert
+ * Module: MMM-FF-Dilbert
  *
  * By Michael Trenkler
  * ISC Licensed.
  */
 
-Module.register("MMM-Ff-Dilbert", {
+Module.register("MMM-FF-Dilbert", {
   defaults: {
     header: "Dilbert",
     initialComic: "latest",
@@ -98,7 +98,7 @@ Module.register("MMM-Ff-Dilbert", {
   },
 
   getStyles: function () {
-    return [this.file("./styles/MMM-Ff-Dilbert.css")];
+    return [this.file("./styles/MMM-FF-Dilbert.css")];
   },
 
   getHeader: function () {

@@ -1,0 +1,64 @@
+/* Magic Mirror
+ * Module: MMM-FF-Dilbert
+ *
+ * By Michael Trenkler
+ * ISC Licensed.
+ */
+.MMM-FF-Dilbert .error {
+  color: #f00;
+}
+
+.MMM-FF-Dilbert .comic-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.MMM-FF-Dilbert .comic {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.MMM-FF-Dilbert .comic.grayscale {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+.MMM-FF-Dilbert .comic.grayscale.inverted {
+  -webkit-filter: grayscale(1) invert(1);
+  filter: grayscale(1) invert(1);
+}
+
+.MMM-FF-Dilbert .comic.inverted {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}
+
+.MMM-FF-Dilbert .comic.high-contrast {
+  -webkit-filter: contrast(10);
+  filter: contrast(10);
+}
+
+.MMM-FF-Dilbert .comic.high-contrast.grayscale {
+  -webkit-filter: contrast(10) grayscale(1);
+  filter: contrast(10) grayscale(1);
+}
+
+.MMM-FF-Dilbert .comic.high-contrast.grayscale.inverted {
+  -webkit-filter: contrast(10) grayscale(1) invert(1);
+  filter: contrast(10) grayscale(1) invert(1);
+}
+
+.MMM-FF-Dilbert .comic.high-contrast.inverted {
+  -webkit-filter: contrast(10) invert(1);
+  filter: contrast(10) invert(1);
+}
+/*# sourceMappingURL=MMM-FF-Dilbert.css.map */
