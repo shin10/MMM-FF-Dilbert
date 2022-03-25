@@ -98,7 +98,7 @@ Module.register("MMM-Ff-Dilbert", {
   },
 
   getStyles: function () {
-    return ["MMM-Ff-Dilbert.css"];
+    return [this.file("./styles/MMM-Ff-Dilbert.css")];
   },
 
   getHeader: function () {
