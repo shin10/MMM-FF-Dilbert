@@ -5,8 +5,8 @@
  * ISC Licensed.
  */
 
-const fs = require("fs");
 const https = require("https");
+const PersistenceService = require("./persistenceService.js");
 
 const BASE_URL = "https://dilbert.com";
 const FIRST_COMIC_ID = "1989-04-16";
@@ -20,9 +20,7 @@ const ComicFetcher = function (nodeHelper, config) {
     sequence,
     updateOnSuspension,
     updateInterval,
-    persistence,
-    persistenceId,
-    persistencePath
+    persistence
   } = config;
 
   // public for filtering
@@ -32,6 +30,8 @@ const ComicFetcher = function (nodeHelper, config) {
   var hidden = false;
   var timerObj = null;
   var updateOnVisibilityChangeRequested = false;
+
+  const storage = new PersistenceService(nodeHelper, config);
 
   const startInterval = () => {
     stopInterval();
@@ -127,7 +127,7 @@ const ComicFetcher = function (nodeHelper, config) {
   };
 
   this.getInitialComic = () => {
-    createPersistenceStorageDirectory();
+    storage.init();
 
     if (comic) {
       if (comic?.id) updateComic(comic);
@@ -135,7 +135,7 @@ const ComicFetcher = function (nodeHelper, config) {
     }
 
     if (persistence === "server") {
-      const data = readPersistentState();
+      const data = storage.readPersistentState();
       if (data) {
         const pId = data.id;
         if (pId?.match(/^\d{4,4}-\d{2,2}-\d{2,2}$/)) initialComic = pId;
@@ -173,53 +173,8 @@ const ComicFetcher = function (nodeHelper, config) {
     nodeHelper.sendSocketNotification("UPDATE_COMIC", {
       config: prepareNotificationConfig()
     });
-    writePersistentState({ id: comic.id });
+    storage.writePersistentState({ id: comic.id });
     startInterval();
-  };
-
-  const getPersistenceStoragePath = () => {
-    return [persistencePath, persistenceId]
-      .join("/")
-      .replace(/\/\//g, "/")
-      .replace(/\/$/, "");
-  };
-
-  const createPersistenceStorageDirectory = () => {
-    if (persistencePath === null) {
-      persistencePath = `${nodeHelper.path}/.store`;
-    }
-    if (persistence === "server") {
-      const path = getPersistenceStoragePath();
-      if (!fs.existsSync(path)) {
-        fs.mkdirSync(path, { recursive: true });
-      }
-      if (!fs.lstatSync(path).isDirectory()) {
-        persistence = false;
-      }
-    }
-  };
-
-  const readPersistentState = () => {
-    if (persistence === "server") {
-      const path = getPersistenceStoragePath();
-      const filePath = path + "/data";
-      if (!fs.existsSync(filePath)) return null;
-      const buffer = fs.readFileSync(filePath, { encoding: "utf8", flag: "r" });
-      const json = JSON.parse(buffer);
-      return json;
-    }
-    return null;
-  };
-
-  const writePersistentState = (data) => {
-    if (persistence === "server") {
-      const path = getPersistenceStoragePath();
-      const filePath = path + "/data";
-      fs.writeFileSync(filePath, JSON.stringify(data), {
-        encoding: "utf8",
-        flag: "w"
-      });
-    }
   };
 
   this.getLatestComic = () => {
