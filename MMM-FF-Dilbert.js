@@ -56,43 +56,6 @@ Module.register("MMM-FF-Dilbert", {
     this.sendSocketNotification("GET_INITIAL_COMIC", { config: this.config });
   },
 
-  clientUsesStorage: function () {
-    const config = this.config;
-    return (
-      config.persistence === "client" ||
-      (config.persistence === "electron" &&
-        window.navigator.userAgent.match(/Electron/i))
-    );
-  },
-
-  getPersistenceStore: function () {
-    const config = this.config;
-    return [config.persistenceId, "data"].join("/").replace(/\/\//g, "/");
-  },
-
-  readPersistentState: function () {
-    if (this.clientUsesStorage()) {
-      const path = this.getPersistenceStore();
-      const data = window.localStorage.getItem(path);
-      if (data) {
-        const json = JSON.parse(data);
-        const pId = json.id;
-        if (pId.match(/^\d{4,4}-\d{2,2}-\d{2,2}$/)) {
-          this.config.initialComic = pId;
-        }
-      }
-    }
-  },
-
-  writePersistentState: function () {
-    const config = this.config;
-    if (this.clientUsesStorage() && this.comicData?.id) {
-      const path = this.getPersistenceStore(config);
-      const data = JSON.stringify({ id: this.comicData.id });
-      window.localStorage.setItem(path, data);
-    }
-  },
-
   getScripts: function () {
     return [];
   },
@@ -229,5 +192,42 @@ Module.register("MMM-FF-Dilbert", {
     if (this.suspended === false) return;
     this.suspended = false;
     this.sendSocketNotification("RESUME", { config: this.config });
+  },
+
+  clientUsesStorage: function () {
+    const config = this.config;
+    return (
+      config.persistence === "client" ||
+      (config.persistence === "electron" &&
+        window.navigator.userAgent.match(/Electron/i))
+    );
+  },
+
+  getPersistenceStore: function () {
+    const config = this.config;
+    return [config.persistenceId, "data"].join("/").replace(/\/\//g, "/");
+  },
+
+  readPersistentState: function () {
+    if (this.clientUsesStorage()) {
+      const path = this.getPersistenceStore();
+      const data = window.localStorage.getItem(path);
+      if (data) {
+        const json = JSON.parse(data);
+        const pId = json.id;
+        if (pId.match(/^\d{4,4}-\d{2,2}-\d{2,2}$/)) {
+          this.config.initialComic = pId;
+        }
+      }
+    }
+  },
+
+  writePersistentState: function () {
+    const config = this.config;
+    if (this.clientUsesStorage() && this.comicData?.id) {
+      const path = this.getPersistenceStore(config);
+      const data = JSON.stringify({ id: this.comicData.id });
+      window.localStorage.setItem(path, data);
+    }
   }
 });
