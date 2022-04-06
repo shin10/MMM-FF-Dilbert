@@ -153,7 +153,7 @@ Module.register("MMM-FF-Dilbert", {
   notificationReceived: function (notification, payload, sender) {
     if (!this.isAcceptableSender(sender)) return;
 
-    this.config.events[notification]?.split(" ").each((e) => {
+    this.config.events[notification]?.split(" ").forEach((e) => {
       switch (e) {
         case "COMIC_FIRST":
           if (!this.hidden) {
