@@ -133,7 +133,7 @@ Module.register("MMM-FF-Dilbert", {
   },
 
   isAcceptableSender(sender) {
-    if (!sender) return true;
+    if (!sender) return false;
     const acceptableSender = this.config.events.sender;
     return (
       !acceptableSender ||
