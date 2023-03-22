@@ -86,8 +86,8 @@ Module.register("MMM-FF-Dilbert", {
 
     const loaded = this.comicData?.id;
     if (!loaded) {
-      wrapper.innerHTML = this.translate("LOADING");
-      wrapper.className = "light small dimmed";
+      wrapper.innerHTML = "DILBERT CANCELED";
+      wrapper.className = "";
       return wrapper;
     }
 
